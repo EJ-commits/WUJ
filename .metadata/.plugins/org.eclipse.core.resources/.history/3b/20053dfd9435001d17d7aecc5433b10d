@@ -1,0 +1,145 @@
+package chap7;
+
+import java.io.*;
+
+public class Hangman {
+
+	String hiddenString;
+	StringBuffer outputString;
+	StringBuffer inputString;
+	int reminder ; // 못맞힌 문자수
+	int failed;
+	
+	
+	public Hangman() {
+		hiddenString = "Hello"; // 문제
+	}
+	
+	public int playGame() {
+		outputString = new StringBuffer(); // 문자열이 들고날 예정일때는 buffer 필수
+		
+		for(int i=0; i<hiddenString.length(); i++) {
+			outputString.append('_'); // 글자수만큼 밀줄표시 
+		}
+		
+		inputString = new StringBuffer();
+		reminder = hiddenString.length();
+		failed = 0 ; 
+		
+		System.out.println("\n단어 : " + hiddenString.length() + " 글자 : " + outputString);
+		drawMan(); // 교수대 그리는 메서드 
+		
+		do{
+			checkChar(readChar());
+			System.out.println("\n단어 : " + hiddenString.length() + " 글자 : " + outputString);
+			drawMan();
+		}while(reminder>0 && failed<6 );
+		
+		return failed;
+	}
+
+	
+	public void checkChar(char guess) {
+		boolean already = false; 
+		for(int i=0; i<inputString.length(); i++) {
+			if(inputString.charAt(i) == guess) {
+				System.out.println("이미 입력한 문자");
+				already = true;
+			}
+		} // 이전 입력여부 먼저 체크 
+		
+		if(!already) {
+			inputString.append(guess); // 입력한 적 없으면 inputString에 저장
+			
+			//입력문자와 정답 비교 시작 
+			boolean success = false;
+			for(int i=0; i<hiddenString.length(); i++) {
+				if(hiddenString.charAt(i)==guess) {
+					outputString.setCharAt(i, guess); // 있으면 출력용 문자 변경
+					reminder--;
+					success = true;
+				}
+				if(!success) failed++; // 사용자 입력 문자 다 돌아도 일치문자 없으면 증가
+			}
+		}
+	}
+
+	public char readChar() {
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		char userInput = 0;
+		System.out.println("한 개의 문자를 입력하세요 : ");
+		try {
+			userInput = (char) in.read();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return userInput;
+		
+	}
+
+	private void drawMan() {
+		System.out.println("  ┏─┯────┓");
+		System.out.println("  │ │    │");
+		
+		switch(failed) {
+			case 0:
+				System.out.println("         │");
+				System.out.println("         │");
+				System.out.println("         │");
+				System.out.println("         │");
+				System.out.println("         │");
+				System.out.println("         │");
+				break; // 필수!! 
+			case 1:
+				System.out.println("  ◐      │");
+				System.out.println("         │");
+				System.out.println("         │");
+				System.out.println("         │");
+				System.out.println("         │");
+				System.out.println("         │");
+				break; 
+			case 2:
+				System.out.println("  ◐      │");
+				System.out.println(" ┎│┓     │");
+				System.out.println("         │");
+				System.out.println("         │");
+				System.out.println("         │");
+				System.out.println("         │");
+				break; 
+			case 3:
+				System.out.println("  ◐      │");
+				System.out.println(" ┎│      │");
+				System.out.println("  │      │");
+				System.out.println("         │");
+				System.out.println("         │");
+				System.out.println("         │");
+				break; 
+			case 4:
+				System.out.println("  ◐      │");
+				System.out.println(" ┎│┓     │");
+				System.out.println("  │      │");
+				System.out.println("         │");
+				System.out.println("         │");
+				System.out.println("         │");
+				break; 
+			case 5:
+				System.out.println("  ◐      │");
+				System.out.println(" ┎│┓     │");
+				System.out.println("  │      │");
+				System.out.println(" ┎┵      │");
+				System.out.println(" │       │");
+				System.out.println("         │");
+				break; 
+			case 6:
+				System.out.println("  ◐      │");
+				System.out.println(" ┎│┓     │");
+				System.out.println("  │      │");
+				System.out.println(" ┎┵┐     │");
+				System.out.println(" │ │     │");
+				System.out.println("         │");
+				break; 
+		}
+	}
+
+	
+}

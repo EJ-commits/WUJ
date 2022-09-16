@@ -1,0 +1,24 @@
+package chap8;
+
+import java.applet.*;
+import java.awt.Color;
+import java.awt.Label;
+
+public class LableTest extends Applet{
+	Label myLabel1, myLable2, myLable3;
+	
+	public LableTest() {}
+	
+	public void init() {
+		myLabel1 = new Label();
+		myLabel1.setText("C¾ð¾î");
+		myLabel1.setAlignment(Label.LEFT);
+		myLabel1.setBackground(Color.cyan);
+		add(myLabel1);
+		
+		myLabel2 = new Label("C++");
+		myLabel2.setAlignment(Label.LEFT);
+		myLabel2.setBackground(Color.cyan);
+		add(myLabel1);
+	}
+}

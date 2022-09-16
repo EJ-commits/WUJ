@@ -1,0 +1,8 @@
+package chap8;
+
+import java.awt.Label;
+
+public class LableTest {
+	Label myLabel1, myLable2, myLable3;
+	
+}

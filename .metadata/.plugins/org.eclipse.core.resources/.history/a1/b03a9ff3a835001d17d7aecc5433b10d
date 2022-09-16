@@ -1,0 +1,16 @@
+package chap8;
+
+import java.applet.Applet;
+import java.awt.*;
+
+public class CheckboxTest extends Applet implements ItemListener{ //체크박스는 입력시 itemevent발생
+	Label myLabel;
+	Checkbox myCheckbox1, myCheckbox2, myCheckbox3;
+	
+	public void init() {
+		myCheckbox1 = new Checkbox();
+		myCheckbox1.setLabel("C언어");
+		myCheckbox1.addItemListener(this);
+		
+	}
+}

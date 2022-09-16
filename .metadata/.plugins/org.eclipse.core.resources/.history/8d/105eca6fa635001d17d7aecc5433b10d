@@ -1,0 +1,17 @@
+package chap8;
+
+import java.applet.Applet;
+import java.awt.*;
+
+public class ButtonTest extends Applet implements ActionListener {
+	
+	Label myLabel;
+	Button myButton1, myButton2, myButton3;
+	
+	public void init() {
+		myButton1 = new Button();
+		myButton1.setLabel("C¾ð¾î");
+		myButton1.addActionListener(this);
+	}
+	
+}

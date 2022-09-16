@@ -1,0 +1,10 @@
+package chap8;
+
+import java.applet.Applet;
+import java.awt.event.ItemListener;
+
+//라디오박스도 체크박스의 일종이다 (라디오형 체크박스) - 따라서 item이벤트가 발생한다!!
+public class CheckboxGroupTest extends Applet implements ItemListener { 
+	
+
+}

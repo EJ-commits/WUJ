@@ -1,0 +1,29 @@
+package chap8;
+
+import java.applet.Applet;
+import java.awt.*;
+import java.awt.event.ActionListener;
+
+public class ButtonTest extends Applet implements ActionListener {
+	
+	Label myLabel;
+	Button myButton1, myButton2, myButton3;
+	Com
+	
+	public void init() {
+		myButton1 = new Button();
+		myButton1.setLabel("C언어");
+		myButton1.addActionListener( this);
+		add(myButton1);
+		
+		myButton2 = new Button("C++언어");
+		myButton2.addActionListener(this);
+		add(myButton2);
+		
+		myButton3 = new Button("자바");
+		myButton3.addActionListener(this);
+		add(myButton3);
+		
+	}
+	
+}
