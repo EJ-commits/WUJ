@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+@SuppressWarnings("serial")
 public class GameJava_09 extends Applet 
 implements Runnable, ActionListener, MouseListener{
 	
@@ -49,11 +50,14 @@ implements Runnable, ActionListener, MouseListener{
 		genLabel = new Label(gen + "세대");
 		genLabel.setAlignment(Label.CENTER);
 		genLabel.setBackground(Color.yellow);
+		controlPanel.add(genLabel);
 		startButton = new Button("start");
 		startButton.addActionListener(this);
+		controlPanel.add(startButton);
 		stopButton = new Button("stop");
 		stopButton.setEnabled(false);
-		startButton.addActionListener(this);
+		stopButton.addActionListener(this);
+		controlPanel.add(stopButton);
 		add("South", controlPanel);
 		
 		addMouseListener(this);
@@ -84,7 +88,7 @@ implements Runnable, ActionListener, MouseListener{
 				if(map[x][y]) { // 생명 true면 색 채우기 
 					g.fillRect(x*10, y*10, 10, 10);
 				}else{
-					g.drawRect(x*10, y*10, x, y);
+					g.drawRect(x*10, y*10, 10, 10);
 				}
 			}
 		}
@@ -135,6 +139,7 @@ implements Runnable, ActionListener, MouseListener{
 		} 
 	}
 
+	@SuppressWarnings("static-access")
 	@Override
 	public void run() {
 		while(true) {
@@ -194,9 +199,9 @@ implements Runnable, ActionListener, MouseListener{
 		for(int i=-1; i<=1; i++) {
 			for(int j=-1; j<=1; j++) {
 				if(i!=0 || j!=0) {
-					if( (x+i>=0 && x+i<maxX) && (y+j>=0 && y+j<maxY) ) {
+					if( (x+i>=0) && (x+i<maxX) && (y+j>=0) && (y+j<maxY) ) {
 						if(map[x+i][y+i]) {
-							mapState[x][y]++;;
+							mapState[x][y]++;
 						}
 					}
 				}
