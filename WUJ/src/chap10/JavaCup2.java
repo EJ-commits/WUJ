@@ -20,7 +20,7 @@ public class JavaCup2 extends Applet implements Runnable{
 		
 		for(int i=0; i<imageTotal; i++) {
 //			javacup[i] = getImage(getCodeBase(), ""+i+".gif");
-			javacup[i] = Toolkit.getDefaultToolkit().getImage(""+i+".gif");
+			javacup[i] = Toolkit.getDefaultToolkit().getImage("D:\\LakeSample\\img_900"+i+".jpg");
 			myTracker.addImage(javacup[i], 0);
 		}
 		
@@ -29,7 +29,7 @@ public class JavaCup2 extends Applet implements Runnable{
 		}catch (InterruptedException e) {
 		}
 		
-		while((myTracker.statusAll(true)) & MediaTracker.COMPLETE == 0) {}
+		while((myTracker.statusAll(true) & MediaTracker.COMPLETE )== 0) {}
 		
 		x= y= 0;
 		

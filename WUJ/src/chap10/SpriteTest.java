@@ -32,7 +32,9 @@ public class SpriteTest extends Applet
 		
 //		bgImage = getImage(getCodeBase(), "");
 		bgImage = Toolkit.getDefaultToolkit().getImage("");
+		ufo = Toolkit.getDefaultToolkit().getImage("D:\\rabbit.jpg");
 		myTracker.addImage(bgImage, 0);
+		myTracker.addImage(ufo, 0);
 		
 		try {
 			myTracker.waitForAll();
@@ -40,12 +42,12 @@ public class SpriteTest extends Applet
 			e.printStackTrace();
 		}
 
-	while((myTracker.statusAll(true)) & MediaTracker.COMPLETE == 0) {}
+	while(((myTracker.statusAll(true) & MediaTracker.COMPLETE) == 0)) {}
 		
 		x= 100;
-		y= 100; // ½ÃÀÛÀ§Ä¡
-		mouseX =100; 
-		mouseY = 100; // Ä¿¼­ÃÊ±â°ª
+		y= 100; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡
+		mouseX =100; 	
+		mouseY = 100; // Ä¿ï¿½ï¿½ï¿½Ê±â°ª
 		
 		addMouseMotionListener(this);
 	}
@@ -70,13 +72,13 @@ public class SpriteTest extends Applet
 		
 		while(true) {
 			try {
-				clock.sleep(50);
+				clock.sleep(1);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-			//¸¶¿ì½º À§Ä¡·Î ÀÌ¹ÌÁö ÀÌµ¿
+			//ï¿½ï¿½ï¿½ì½º ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
 			if(x<mouseX) {
 				x++;
 			}else if(x>mouseX){
@@ -108,7 +110,7 @@ public class SpriteTest extends Applet
 	public void destroy() {
 	}
 	
-	//¸¶¿ì½ºÃ³¸®
+	//ï¿½ï¿½ï¿½ì½ºÃ³ï¿½ï¿½
 	public void mouseMoved(MouseEvent e) {
 		mouseX = e.getX();
 		mouseY = e.getY();
