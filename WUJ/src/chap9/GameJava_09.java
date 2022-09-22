@@ -17,10 +17,10 @@ implements Runnable, ActionListener, MouseListener{
 
 	static final int maxX = 40;
 	static final int maxY = 20;
-	boolean map[][]; // ÇØ´ç ÁÂÇ¥ÀÇ »ı¸í ¿©ºÎ 
-	int mapState[][]; // ÇØ´çÁÂÇ¥ ÀÌ¿ôÀÇ ¼ö
-	int gen; // ¼¼´ë¼ö Ç¥½Ã
-	boolean nextGen; // ´ÙÀ½¼¼´ë ½ÃÀÛ 
+	boolean map[][]; // í•´ë‹¹ ì¢Œí‘œì˜ ìƒëª… ì—¬ë¶€ 
+	int mapState[][]; // í•´ë‹¹ì¢Œí‘œ ì´ì›ƒì˜ ìˆ˜
+	int gen; // ì„¸ëŒ€ìˆ˜ í‘œì‹œ
+	boolean nextGen; // ë‹¤ìŒì„¸ëŒ€ ì‹œì‘ 
 	
 	Panel controlPanel;
 	Label genLabel;
@@ -28,20 +28,20 @@ implements Runnable, ActionListener, MouseListener{
 	
 	Thread clock;
 	
-	public void init() { // ¾ÖÇÃ¸´ ½ÇÇà
-		map = new boolean[maxX][maxY]; // booleanÇü 40*20¹è¿­ 
-		mapState = new int[maxX][maxY]; // intÇü 40*20¹è¿­
+	public void init() { // ì• í”Œë¦¿ ì‹¤í–‰
+		map = new boolean[maxX][maxY]; // booleaní˜• 40*20ë°°ì—´ 
+		mapState = new int[maxX][maxY]; // intí˜• 40*20ë°°ì—´
 		gen = 1;
-		nextGen = false; // ´ÙÀ½¼¼´ë ½ÃÀÛ ¾ÈÇÔ 
+		nextGen = false; // ë‹¤ìŒì„¸ëŒ€ ì‹œì‘ ì•ˆí•¨ 
 		
-		// 1¼¼´ë : (15,10) ~ (24, 10) ÀÇ 10Ä­
+		// 1ì„¸ëŒ€ : (15,10) ~ (24, 10) ì˜ 10ì¹¸
 		for(int x=15; x<25; x++) {
 			for(int y=10; y<11; y++) {
 				map[x][y] = true;
 			}
 		}
 		
-		//½ÇÇà½Ã gui ¼¼Æ®
+		//ì‹¤í–‰ì‹œ gui ì„¸íŠ¸
 		setLayout(new BorderLayout());
 		controlPanel = new Panel();
 		controlPanel.setBackground(Color.blue);
@@ -50,20 +50,20 @@ implements Runnable, ActionListener, MouseListener{
 		controlPanel.add(genLabel);
 		startButton = new Button("start");
 		stopButton = new Button("stop");
-		startButton.addActionListener(this); // ÀÌº¥Æ® ¸®½º³Ê °´Ã¼´Â ¹öÆ° ÀÚ±â ÀÚ½ÅÀÌ¹Ç·Î, this 
+		startButton.addActionListener(this); // ì´ë²¤íŠ¸ ë¦¬ìŠ¤ë„ˆ ê°ì²´ëŠ” ë²„íŠ¼ ìê¸° ìì‹ ì´ë¯€ë¡œ, this 
 		stopButton.addActionListener(this);
 		controlPanel.add(startButton);
 		controlPanel.add(stopButton);
-		add("South",controlPanel);
+		add("south",controlPanel);
 		
-		addMouseListener(this); // ¾ÖÇÃ¸´ ÀüÃ¼¿¡ ¸®½º³Ê 
+		addMouseListener(this); // ì• í”Œë¦¿ ì „ì²´ì— ë¦¬ìŠ¤ë„ˆ 
 		
 	} 
 	
-	// ½º·¹µå ¸Ş¼­µå
+	// ìŠ¤ë ˆë“œ ë©”ì„œë“œ
 	public void start() {
 		if(clock==null) {
-			clock = new Thread(this); // Å¬·¡½º ÀüÃ¼¸¦ Å¸°ÙÀ¸·Î, ½º·¹µå »ı¼º. Å¬·¡½º°¡ ·¯³ÊºíÀÌ¹Ç·Î Å¸°ÙÀÌ µÉ ¼ö ÀÖÀ½. 
+			clock = new Thread(this); // í´ë˜ìŠ¤ ì „ì²´ë¥¼ íƒ€ê²Ÿìœ¼ë¡œ, ìŠ¤ë ˆë“œ ìƒì„±. í´ë˜ìŠ¤ê°€ ëŸ¬ë„ˆë¸”ì´ë¯€ë¡œ íƒ€ê²Ÿì´ ë  ìˆ˜ ìˆìŒ. 
 			clock.start();
 		}
 	}
@@ -77,11 +77,11 @@ implements Runnable, ActionListener, MouseListener{
 	
 	@Override
 	public void paint(Graphics g) {
-		//Ä­ ±×¸®±â: »ı¸íÀÌ ÀÖÀ¸¸é(map ¹è¿­ true) Ã¤¿î´Ù
+		//ì¹¸ ê·¸ë¦¬ê¸°: ìƒëª…ì´ ìˆìœ¼ë©´(map ë°°ì—´ true) ì±„ìš´ë‹¤
 		for(int x=0; x<maxX; x++) {
 			for(int y=0; y<maxY; y++) {
 				if(map[x][y]) {
-					g.fillRect(x*10, y*10, 10, 10); // ** x*10 ¿Ö? 
+					g.fillRect(x*10, y*10, 10, 10); // ** x*10 ì™œ? 
 				}else {
 					g.drawRect(x*10, y*10, 10, 10);
 				}
@@ -106,7 +106,7 @@ implements Runnable, ActionListener, MouseListener{
 	public void mousePressed(MouseEvent e) {
 		int mouseX = e.getX();
 		int mouseY = e.getY();
-		map[mouseX/10][mouseY/10] = !map[mouseX/10][mouseY/10]; //¹İ´ë°ª 
+		map[mouseX/10][mouseY/10] = !map[mouseX/10][mouseY/10]; //ë°˜ëŒ€ê°’ 
 		repaint();
 	}
 
@@ -145,7 +145,7 @@ implements Runnable, ActionListener, MouseListener{
 	public void run() {
 		while(true) {
 			try {
-				clock.sleep(1000); // 1ÃÊ¿¡ ÇÑ¹ø ½º·¹µå ÁßÁö
+				clock.sleep(1000); // 1ì´ˆì— í•œë²ˆ ìŠ¤ë ˆë“œ ì¤‘ì§€
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			} 
@@ -153,8 +153,8 @@ implements Runnable, ActionListener, MouseListener{
 			if(nextGen) {
 				makeNextGen();
 				gen++;
-				genLabel.setText(gen+"¼¼´ë");
-				repaint(); //³×¸ğ»ö±òÃ¤¿ì±â ¸Ş¼­µå 
+				genLabel.setText(gen+"ì„¸ëŒ€");
+				repaint(); //ë„¤ëª¨ìƒ‰ê¹”ì±„ìš°ê¸° ë©”ì„œë“œ 
 			}
 			
 		} 
@@ -164,41 +164,41 @@ implements Runnable, ActionListener, MouseListener{
 		for(int x=0; x<maxX; x++) {
 			for(int y=0; y<maxY; y++) {
 				if(map[x][y]) {
-					mapState[x][y] = 100; // ÇØ´çÁÂÇ¥¿¡ »ı¸íÀÌ ÀÖÀ¸¸é 100
+					mapState[x][y] = 100; // í•´ë‹¹ì¢Œí‘œì— ìƒëª…ì´ ìˆìœ¼ë©´ 100
 				}else {
-					mapState[x][y] = 0; // »ı¸íÀÌ ¾øÀ¸¸é 0
+					mapState[x][y] = 0; // ìƒëª…ì´ ì—†ìœ¼ë©´ 0
 				}
-			} //1. »ı¸í ¼¼±â 
+			} //1. ìƒëª… ì„¸ê¸° 
 		}	
 		for(int x=0; x<maxX; x++) {
 			for(int y=0; y<maxY; y++) {
-				countLife(x,y); // mapstate¸¦ ÀÌ¿ô ¼ö¿¡ ¸ÂÃß¾î ÁØ´Ù. 
+				countLife(x,y); // mapstateë¥¼ ì´ì›ƒ ìˆ˜ì— ë§ì¶”ì–´ ì¤€ë‹¤. 
 			}
-		}// 2. ÀÌ¿ô ¼ö ¼¼±â 
+		}// 2. ì´ì›ƒ ìˆ˜ ì„¸ê¸° 
 		for(int x=0; x<maxX; x++) {
 			for(int y=0; y<maxY; y++) {
 				switch(mapState[x][y]) {
 				case 3:
 				case 102:
 				case 103:
-					map[x][y] = true; // ÇØ´çÁÂÇ¥ »ı¸í ÀÖÀ½
+					map[x][y] = true; // í•´ë‹¹ì¢Œí‘œ ìƒëª… ìˆìŒ
 					break;
 				default:
-					map[x][y] = false; // ±×¿Ü°æ¿ì »ı¸í ¼Ò¸ê 
+					map[x][y] = false; // ê·¸ì™¸ê²½ìš° ìƒëª… ì†Œë©¸ 
 					break;
 				}
 			}	
-		}//3. ÀÌ¿ô ¼ö¿¡ µû¶ó »ı¼º, ¼Ò¸ê º¯°æµÊ
+		}//3. ì´ì›ƒ ìˆ˜ì— ë”°ë¼ ìƒì„±, ì†Œë©¸ ë³€ê²½ë¨
 	}
 
 	public void countLife(int x, int y) {
-		//¾ç¿·¾Æ·¡ Ä­ È®ÀÎ 
+		//ì–‘ì˜†ì•„ë˜ ì¹¸ í™•ì¸ 
 		for(int i=-1; i<=1; i++){
 			for(int j=-1; j<=1; j++) {
-				if(i!=0 || j!=0) { // i,j ¸ğµÎ 0¾Æ´Ô : !(i==0 && j==0) ºĞ¹è¹ıÄ¢À¸·Î or¿¬»êÈ­
-					if((x+i)>=0 && (x+i<maxX) && (y+j>=0) && (y+j<maxY)) { // ÁÂÇ¥ÀüÃ¼ ¾È¿¡ ÀÖ´ÂÁö
-						if(map[x+i][y+j]) { // ÇØ´ç ÁÂÇ¥ÀÇ »óÇÏÁÂ¿ì¿¡ »ı¸íÀÌ Á¸ÀçÇÑ´Ù¸é
-							mapState[x][y]++; // ÀÌ¿ô¼ö¸¦ 1 ´Ã¸°´Ù. 
+				if(i!=0 || j!=0) { // i,j ëª¨ë‘ 0ì•„ë‹˜ : !(i==0 && j==0) ë¶„ë°°ë²•ì¹™ìœ¼ë¡œ orì—°ì‚°í™”
+					if((x+i)>=0 && (x+i<maxX) && (y+j>=0) && (y+j<maxY)) { // ì¢Œí‘œì „ì²´ ì•ˆì— ìˆëŠ”ì§€
+						if(map[x+i][y+i]) { // í•´ë‹¹ ì¢Œí‘œì˜ ìƒí•˜ì¢Œìš°ì— ìƒëª…ì´ ì¡´ì¬í•œë‹¤ë©´
+							mapState[x][y]++; // ì´ì›ƒìˆ˜ë¥¼ 1 ëŠ˜ë¦°ë‹¤. 
 						}
 					}
 				}
