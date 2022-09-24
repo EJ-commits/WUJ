@@ -54,7 +54,7 @@ implements Runnable, ActionListener, MouseListener{
 		stopButton.addActionListener(this);
 		controlPanel.add(startButton);
 		controlPanel.add(stopButton);
-		add("south",controlPanel);
+		add("South",controlPanel);
 		
 		addMouseListener(this); // 애플릿 전체에 리스너 
 		
