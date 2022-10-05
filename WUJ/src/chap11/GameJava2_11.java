@@ -254,7 +254,7 @@ public class GameJava2_11 extends Applet implements ActionListener, Runnable {
 		boolean dropOk = true;
 		
 		for(int i=0; i<4; i++) {
-			if(blockY[i]+1!=21 ) {
+			if((blockY[i]+1<21) ) {
 				if(map[blockX[i]][blockY[i]+1]) {
 					dropOk =false;
 				}
