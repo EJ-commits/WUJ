@@ -196,6 +196,7 @@ public class GameJava2_11 extends Applet implements ActionListener, Runnable {
 				break;
 			case 2:
 				drawScore();
+				break;
 			default:
 				drawTitle();
 				break;
