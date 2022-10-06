@@ -277,30 +277,32 @@ public class GameJava2_11 extends Applet implements ActionListener, Runnable {
 			if(delOk) {
 				try {
 					clip.open(AudioSystem.getAudioInputStream(deleteAudio));
-					clip.start();
+ 					clip.start();
 				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
 					e.printStackTrace();
 				}
 				score += 10;
+				
 				if(score <1000) //속도조절
 					delayTime = 1000 - score;
-			}else {
-				delayTime = 0;
+
+				for(int delRow=row; delRow >0; delRow--) {
+					for(int delCol=0; delCol <12 ; delCol++) {
+						map[delCol][delRow] = map[delCol][delRow-1];
+						colorMap[delCol][delRow] = colorMap[delCol][delRow-1]; // 화면표시용
+					}
+				}
+			} else {
+//				delayTime = 0;
 			}
 			
-			for(int delRow=row; delRow >0; delRow--) {
-				for(int delCol=0; delCol <12 ; delCol++) {
-					map[delCol][delRow] = map[delCol][delRow-1];
-					colorMap[delCol][delRow] = colorMap[delCol][delRow-1]; // 화면표시용
-				}
-			}
 			
 			for(int i=0; i<12; i++) {
 				map[0][i] =  false;
 				colorMap[0][i] = Color.white;
 			}
 			
-			row++;
+//			row++;
 		}
 	}
 	
